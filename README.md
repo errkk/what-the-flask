@@ -17,3 +17,8 @@ Running the migrations
 ```sh
 docker-compose exec web bash -c "python server/models.py"
 ```
+
+Add some test data
+```sh
+docker-compose exec web bash -c "python server/insert.py"
+```
