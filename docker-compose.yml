@@ -1,10 +1,20 @@
 version: "3.9"
+# This is the docker compose file
+# It will use dockere to run all the services we need
+# At the moment, we're just running one called web, but we could add others, for example postgres
+# And cos they're in Docker, they can all speak to each other as if they're on a little network!
 services:
   web:
+    # Build using the Dockerfile in the same directory as this
     build: .
+    # Map port 5000 on the container to 5000 on our mac, so we can see stuff
     ports:
       - "5000:5000"
+    # This mounts the project folder onto the container. Meaning that if we change files on the mac
+    # they'll be updated in the container too so we can do coding, lol
     volumes:
       - .:/code
+    # We can set environment variables for the container here.
+    # This is useful for configs etc, like if we needed an API key or wotnot
     environment:
       FLASK_ENV: development
