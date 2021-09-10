@@ -18,3 +18,20 @@ services:
     # This is useful for configs etc, like if we needed an API key or wotnot
     environment:
       FLASK_ENV: development
+      PGPASSWORD: "postgres"
+      SQLALCHEMY_DATABASE_URI: 'postgresql://postgres:postgres@postgres:5432/flaskexample'
+
+    # We need the postgres container for this one to do it's thing
+    depends_on:
+      - postgres
+
+  # We also need a postgres server
+  # This will be another docker container, but they can speak to eachother inside of docker's network
+  # usign the container name as a hostname. for example, the internal hostname of this one will be "postgres"
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "postgres"
+    ports:
+      - "5432:5432"

@@ -27,14 +27,3 @@ class Role(db.Model):
 
     def __repr__(self):
         return f"<Category:{self.id} {self.name}>"
-
-
-# Just like in app.py if this file is run like `python server/models.py` then the stuff below runs
-# We dont want this to happen when this file is imported, just when we want to run it
-# We'll use this for runing the database migrations
-if __name__ == "__main__":
-    from server.app import app
-
-    with app.app_context():
-        db.drop_all()
-        db.create_all()

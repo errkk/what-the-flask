@@ -8,7 +8,7 @@
 FROM python:3.7-alpine
 
 # We do need to install a bunch of stuff tho. hey ho.
-RUN apk add --no-cache gcc musl-dev linux-headers libressl-dev musl-dev libffi-dev python3-dev bash make libevent-dev build-base
+RUN apk add --no-cache gcc musl-dev linux-headers libressl-dev musl-dev libffi-dev python3-dev bash make libevent-dev build-base postgresql-dev postgresql-client
 
 # We're going to keep everything in this /code folder (on the container) it doesn't know about the rest of our stuff
 WORKDIR /code
@@ -31,5 +31,8 @@ WORKDIR /code/src
 # to make verything tidier
 RUN python3 setup.py develop
 
+ENV FLASK_APP="server/app.py"
+
 # This runs the development server, so its already going whenever we run docker-compose up
-CMD ["python", "server/app.py"]
+CMD ["flask", "run"]
+#CMD ["python", "server/app.py"]
