@@ -21,9 +21,26 @@ def index():
     return jsonify(data)
 
 
+@views.route('/user/<user_id>')
+def user(user_id):
+    # Get a single object
+    user = User.query.get(user_id)
+
+    if user is None:
+        return jsonify({"status": "not found"}), 404
+
+    # User objects are complex python objects, and they don't know how to be serialised by JSON
+    # Marshmallow schemas are used to convert model instances into dictionaries, which can be
+    # encoded as json, and returned to the client as an API response
+    serializable_data = user_schema.dump(user)
+
+    # Return a JSON response
+    return jsonify(serializable_data)
+
+
 @views.route('/users')
 def users():
-    # Some data to return
+    # Get a collection of objects
     users = User.query.all()
 
     # User objects are complex python objects, and they don't know how to be serialised by JSON

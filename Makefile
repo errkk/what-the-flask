@@ -16,5 +16,8 @@ migrate:
 upgrade:
 	docker-compose exec web bash -c "flask db upgrade"
 
+downgrade:
+	docker-compose exec web bash -c "flask db downgrade"
+
 flask_shell:
 	docker-compose exec web bash -c "flask shell"

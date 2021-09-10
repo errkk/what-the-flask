@@ -18,9 +18,3 @@ app.register_blueprint(views)
 db.init_app(app)
 ma.init_app(app)
 migrate = Migrate(app, db)
-
-
-# If this file is run like `python server/app.py` then the program starts
-# This is what docker does when we start it up
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0')
