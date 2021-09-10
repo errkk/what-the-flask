@@ -14,7 +14,7 @@ RUN apk add --no-cache gcc musl-dev linux-headers libressl-dev musl-dev libffi-d
 WORKDIR /code
 
 # First we copy this list of requirements.
-# This is a simpler version of what we use at Beryl, but it tells the package manager, pip, to install the python dependencies
+# Tells the package manager, pip, to install the python dependencies
 # It's like yarn or NPM
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
