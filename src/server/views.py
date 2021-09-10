@@ -9,10 +9,10 @@ user_schema = UserSchema()
 
 # Make a namespace for all the views defined in here.
 # This will be added to flask at the setups stage so it can route requests to these functions
-views = Blueprint('views', __name__)
+views = Blueprint("views", __name__)
 
 # This is the main route that you get when you go to http://localhost:5000/
-@views.route('/')
+@views.route("/")
 def index():
     # Some data to return
     data = {"ha": "ai"}
@@ -21,7 +21,7 @@ def index():
     return jsonify(data)
 
 
-@views.route('/user/<user_id>')
+@views.route("/user/<user_id>")
 def user(user_id):
     # Get a single object
     user = User.query.get(user_id)
@@ -38,7 +38,7 @@ def user(user_id):
     return jsonify(serializable_data)
 
 
-@views.route('/users')
+@views.route("/users")
 def users():
     # Get a collection of objects
     users = User.query.all()

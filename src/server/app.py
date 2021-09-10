@@ -9,7 +9,7 @@ from server.database import db, ma
 
 # Set up Flask
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ["SQLALCHEMY_DATABASE_URI"]
 
 # Tell Flask about all the routes in the views module
 app.register_blueprint(views)
