@@ -4,3 +4,4 @@ flask-marshmallow
 marshmallow-sqlalchemy
 psycopg2-binary
 Flask-Migrate
+flask-shell-ipython
