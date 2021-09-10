@@ -32,7 +32,8 @@ WORKDIR /code/src
 RUN python3 setup.py develop
 
 ENV FLASK_APP="server/app.py"
+ENV FLASK_RUN_PORT=5000
+ENV FLASK_RUN_HOST="0.0.0.0"
 
 # This runs the development server, so its already going whenever we run docker-compose up
 CMD ["flask", "run"]
-#CMD ["python", "server/app.py"]
