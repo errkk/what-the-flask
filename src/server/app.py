@@ -4,7 +4,7 @@ from flask import Flask
 from flask_migrate import Migrate
 
 from server.views import views
-from server.database import db
+from server.database import db, ma
 
 
 # Set up Flask
@@ -16,6 +16,7 @@ app.register_blueprint(views)
 
 # Tell Flask about our database
 db.init_app(app)
+ma.init_app(app)
 migrate = Migrate(app, db)
 
 

@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify
 
 from server.models import User
+from server.schemas import UserSchema
+
+user_schema = UserSchema()
 
 # Make a namespace for all the views defined in here.
 # This will be added to flask at the setups stage so it can route requests to these functions
@@ -19,8 +22,7 @@ def index():
 @views.route('/users')
 def users():
     # Some data to return
-    data = {"ha": "ai"}
     users = User.query.all()
 
     # Return a JSON response
-    return jsonify([u.name for u in users])
+    return jsonify([user_schema.dump(u) for u in users])

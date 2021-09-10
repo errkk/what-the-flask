@@ -1,4 +1,6 @@
 flask
 flask_sqlalchemy
+flask-marshmallow
+marshmallow-sqlalchemy
 psycopg2-binary
 Flask-Migrate
