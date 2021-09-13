@@ -21,3 +21,9 @@ downgrade:
 
 flask_shell:
 	docker-compose exec web bash -c "flask shell"
+
+test_watch:
+	rm -rf src/.pytest_cache &&\
+	rm -rf src/.tmontmp &&\
+	rm -f src/.testmondata &&\
+	docker-compose exec web bash -c "DEBUG='' pytest-watch -- --testmon -vv --disable-pytest-warnings"
