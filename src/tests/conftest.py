@@ -4,7 +4,7 @@ import pytest
 from flask_migrate import Migrate, upgrade
 from sqlalchemy_utils.functions import drop_database, create_database, database_exists
 
-from server.models import User, Role
+from server.models import User
 from server.factory import create_app
 from server.database import db as _db
 
@@ -48,10 +48,8 @@ def db(app, request):
 
 @pytest.fixture(scope="function")
 def add_user(db):
-    role = Role(name="can do stuff")
-
     def inner(name="Test user", email="test@example.com"):
-        user = User(name=name, email=email, roles=[role])
+        user = User(name=name, email=email)
         db.session.add(user)
         db.session.commit()
         return user
