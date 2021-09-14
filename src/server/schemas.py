@@ -20,3 +20,4 @@ class UserSchema(ma.SQLAlchemySchema):
     # So we tell it here, which type of model to expect
     class Meta:
         model = User
+        load_instance = True

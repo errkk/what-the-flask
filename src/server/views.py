@@ -1,7 +1,10 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
+from marshmallow.exceptions import ValidationError 
 
 from server.models import User
 from server.schemas import UserSchema
+from server.database import db
+
 
 # Create an instance of the User schema, to convert User model instances into dictionaries, which
 # can be serialised into JSON
@@ -38,7 +41,7 @@ def user(user_id):
     return jsonify(serializable_data)
 
 
-@views.route("/users")
+@views.route("/users", methods=["GET"])
 def users():
     # Get a collection of objects
     users = User.query.all()
@@ -50,3 +53,17 @@ def users():
 
     # Return a JSON response
     return jsonify(serializable_data)
+
+@views.route("/users", methods=["POST"])
+def insert_user():
+    try:
+        data = request.get_json()
+        new_user = user_schema.load(data)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+    except ValidationError:
+        return 'Yikes', 422
+    
+    return 'ok', 201
