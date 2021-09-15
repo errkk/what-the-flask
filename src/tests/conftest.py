@@ -49,10 +49,16 @@ def db(app, request):
 
 @pytest.fixture(scope="function")
 def add_user(db):
+    # Returns a function that will be used in the test to make a test user
+    # Like add_user(name="xxx", email="xxx")
     def inner(name="Test user", email="test@example.com"):
         user = User(name=name, email=email)
         db.session.add(user)
         db.session.commit()
         return user
 
-    return inner
+    yield inner  # return but carry on
+
+    # Delete all users after the test
+    User.query.delete()
+    db.session.commit()

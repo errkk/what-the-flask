@@ -1,3 +1,7 @@
+#you can use the make command to automate different parts of developing a Python project - e.g. running tests
+#to use make in your project, you need to have a file named Makefile at the root.
+#this file instructs make on what to do.
+
 build:
 	docker-compose build
 

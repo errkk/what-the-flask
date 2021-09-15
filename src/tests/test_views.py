@@ -43,3 +43,19 @@ def test_insert_user(client):
     users = User.query.count()
     assert users == 1
     assert response.status_code == 201
+
+
+def test_delete_user(client, add_user):
+
+    cookie = add_user(name="cookie", email="cookie@cookie.com")
+    biscuit = add_user(name="biscuit", email="biscuit@biscuit.com")
+
+    user_count = User.query.count()
+    assert user_count == 2
+
+    response = client.delete(f"/user/{cookie.id}")
+    user_count = User.query.count()
+    remaining_user = User.query.first()
+    assert user_count == 1
+    assert response.status_code == 201
+    assert remaining_user.id == biscuit.id

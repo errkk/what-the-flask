@@ -15,6 +15,7 @@ class UserSchema(ma.SQLAlchemySchema):
     # to expect, eg, integer, string, list etc.
     name = ma.auto_field()
     email = ma.auto_field()
+    id = ma.auto_field()
 
     # This is a schema that works with an SQLA model
     # So we tell it here, which type of model to expect

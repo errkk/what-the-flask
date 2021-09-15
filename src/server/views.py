@@ -41,6 +41,20 @@ def user(user_id):
     return jsonify(serializable_data)
 
 
+@views.route("/user/<user_id>", methods=["DELETE"])
+def delete_user(user_id):
+    # Get a single user
+    user = User.query.get(user_id)
+
+    if user is None:
+        return jsonify({"status": "not found"}), 404
+
+    db.session.delete(user)
+    db.session.commit()
+    # Return a JSON response
+    return "user deleted", 201
+
+
 @views.route("/users", methods=["GET"])
 def users():
     # Get a collection of objects

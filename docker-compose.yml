@@ -1,5 +1,6 @@
 version: "3.9"
 # This is the docker compose file
+# Relevant at run time
 # It will use dockere to run all the services we need
 # At the moment, we're just running one called web, but we could add others, for example postgres
 # And cos they're in Docker, they can all speak to each other as if they're on a little network!
@@ -8,10 +9,13 @@ services:
     # Build using the Dockerfile in the same directory as this
     build: .
     # Map port 5000 on the container to 5000 on our mac, so we can see stuff
+    # When a request gets to the host (your computer), docker forwards it to the container
+    # The EXPOSE line in the Dockerfile lets the container accept the request
     ports:
       - "5000:5000"
-    # This mounts the project folder onto the container. Meaning that if we change files on the mac
+    # Volumes mount the project folder inside the container. Meaning that if we change files on the mac
     # they'll be updated in the container too so we can do coding, lol
+    # This is because the container can "see" the files that we're working on
     volumes:
       - .:/code
     # We can set environment variables for the container here.
@@ -19,7 +23,7 @@ services:
     environment:
       FLASK_ENV: development
       PGPASSWORD: "postgres"
-      SQLALCHEMY_DATABASE_URI: 'postgresql://postgres:postgres@postgres:5432/flaskexample'
+      SQLALCHEMY_DATABASE_URI: "postgresql://postgres:postgres@postgres:5432/flaskexample"
 
     # We need the postgres container for this one to do it's thing
     depends_on:
