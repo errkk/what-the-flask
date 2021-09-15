@@ -4,12 +4,13 @@ import pytest
 from flask_migrate import Migrate, upgrade
 from sqlalchemy_utils.functions import drop_database, create_database, database_exists
 
-from server.models import User
+from server.models import Role, User
 from server.factory import create_app
 from server.database import db as _db
 
 
 TEST_DATABASE_URI = os.environ["SQLALCHEMY_DATABASE_URI"] + "_test"
+
 
 @pytest.fixture(scope="session")
 def app(request):
@@ -48,10 +49,18 @@ def db(app, request):
 
 @pytest.fixture(scope="function")
 def add_user(db):
+    # Returns a function that will be used in the test to make a test user
+    # Like add_user(name="xxx", email="xxx")
     def inner(name="Test user", email="test@example.com"):
-        user = User(name=name, email=email)
+        role = Role(name=f"{name}'s role'")
+        user = User(name=name, email=email, roles=[role])
         db.session.add(user)
         db.session.commit()
         return user
-    return inner
 
+    yield inner
+
+    # Delete all users after the test
+    Role.query.delete()
+    User.query.delete()
+    db.session.commit()

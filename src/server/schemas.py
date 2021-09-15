@@ -16,7 +16,9 @@ class UserSchema(ma.SQLAlchemySchema):
     name = ma.auto_field()
     email = ma.auto_field()
 
-    # This is a schema that works with an SQLA model
-    # So we tell it here, which type of model to expect
     class Meta:
+        # This is a schema that works with an SQLA model
+        # So we tell it here, which type of model to expect
         model = User
+        # When deserialising, create a model instance (instead of a dict)
+        load_instance = True
