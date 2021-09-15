@@ -11,6 +11,7 @@ from server.database import db as _db
 
 TEST_DATABASE_URI = os.environ["SQLALCHEMY_DATABASE_URI"] + "_test"
 
+
 @pytest.fixture(scope="session")
 def app(request):
     """Session-wide test `Flask` application."""
@@ -53,5 +54,5 @@ def add_user(db):
         db.session.add(user)
         db.session.commit()
         return user
-    return inner
 
+    return inner

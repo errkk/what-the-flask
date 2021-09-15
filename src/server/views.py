@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from marshmallow.exceptions import ValidationError 
+from marshmallow.exceptions import ValidationError
 
 from server.models import User
 from server.schemas import UserSchema
@@ -54,6 +54,7 @@ def users():
     # Return a JSON response
     return jsonify(serializable_data)
 
+
 @views.route("/users", methods=["POST"])
 def insert_user():
     try:
@@ -64,6 +65,6 @@ def insert_user():
         db.session.commit()
 
     except ValidationError:
-        return 'Yikes', 422
-    
-    return 'ok', 201
+        return "Yikes", 422
+
+    return "ok", 201

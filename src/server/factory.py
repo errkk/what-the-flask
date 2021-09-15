@@ -27,4 +27,3 @@ def create_app(settings_override=None):
     migrate = Migrate(app, db)
 
     return app
-
